@@ -1,0 +1,7 @@
+*.json
+*.csv
+*.swp
+
+eml/*
+geojson/*
+geojson_with_loc/*

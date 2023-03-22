@@ -7,9 +7,9 @@ Instructies en scripts om EML verkiezingsuitslagen die de Kiesraad publiceert te
 - xsltproc
 
 ## Instructies
-- Maak een nieuwe `stm_lookup.json` en `stm_lookup2.json` op basis van de stembureaudata (.csv) van 'Waar is mijn stemlokaal' (hieronder wordt als voorbeeld de .csv van de 2021TK verkiezingen gebruikt https://ckan.dataplatform.nl/datastore/dump/eb2c1546-7f8d-41d4-9719-61b53b6d2111):
-    - cat eb2c1546-7f8d-41d4-9719-61b53b6d2111.csv | <PATH_TO_CSV2JSON>/target/debug/csv2json -t -l | jq -s 'map({N:.["Nummer stembureau"],S:.["Naam stembureau"],P:.["Postcode"],L:.["Plaats"],X:[.["Longitude"],.["Latitude"]],G:.["CBS gemeentecode"]})|group_by(.G)|map({key:.[0].G,value:map({key:.N|tostring,value:.})|group_by(.key)|map({key:.[0].key, value:map(.value|{S,P,L,X})})|from_entries})|from_entries' > stm_lookup.json
-    - cat eb2c1546-7f8d-41d4-9719-61b53b6d2111.csv | <PATH_TO_CSV2JSON>/target/debug/csv2json -t -l | jq -s 'map({N:.["Nummer stembureau"],S:.["Naam stembureau"],P:.["Postcode"],L:.["Plaats"],X:[.["Longitude"],.["Latitude"]],G:.["CBS gemeentecode"]})|group_by(.G)|map({key:.[0].G,value:map({key:.P|tostring,value:.})|group_by(.key)|map({key:.[0].key, value:map(.value|{S,L,X})|unique})|from_entries})|from_entries' > stm_lookup2.json
+- Maak een nieuwe `stm_lookup.json` en `stm_lookup2.json` op basis van de stembureaudata (`.csv`) van 'Waar is mijn stemlokaal' (hieronder wordt als voorbeeld de `.csv` van de 2021TK verkiezingen gebruikt https://ckan.dataplatform.nl/datastore/dump/eb2c1546-7f8d-41d4-9719-61b53b6d2111):
+    - `cat eb2c1546-7f8d-41d4-9719-61b53b6d2111.csv | <PATH_TO_CSV2JSON>/target/debug/csv2json -t -l | jq -s 'map({N:.["Nummer stembureau"],S:.["Naam stembureau"],P:.["Postcode"],L:.["Plaats"],X:[.["Longitude"],.["Latitude"]],G:.["CBS gemeentecode"]})|group_by(.G)|map({key:.[0].G,value:map({key:.N|tostring,value:.})|group_by(.key)|map({key:.[0].key, value:map(.value|{S,P,L,X})})|from_entries})|from_entries' > stm_lookup.json`
+    - `cat eb2c1546-7f8d-41d4-9719-61b53b6d2111.csv | <PATH_TO_CSV2JSON>/target/debug/csv2json -t -l | jq -s 'map({N:.["Nummer stembureau"],S:.["Naam stembureau"],P:.["Postcode"],L:.["Plaats"],X:[.["Longitude"],.["Latitude"]],G:.["CBS gemeentecode"]})|group_by(.G)|map({key:.[0].G,value:map({key:.P|tostring,value:.})|group_by(.key)|map({key:.[0].key, value:map(.value|{S,L,X})|unique})|from_entries})|from_entries' > stm_lookup2.json`
 
 - Plaats de `.eml.xml` bestanden van alle gemeenten in de `eml` folder
 

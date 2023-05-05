@@ -3,6 +3,7 @@ Instructies en scripts om EML verkiezingsuitslagen die de Kiesraad publiceert te
 
 ## Dependencies
 - https://github.com/bwbroersma/csv2json
+    - clone the repo, `cd` into it and run `cargo build`
 - jq
 - xsltproc
 
@@ -21,7 +22,7 @@ Instructies en scripts om EML verkiezingsuitslagen die de Kiesraad publiceert te
 
 - Run `./stembureaus_zonder_loc.py` om `stembureaus_zonder_loc.csv` te maken waar stembureaus in staan die geen locaties hebben; deze kunnen via bv. een cloud spreadsheet door een team ingevuld worden
 
-- Download het handmatig aangevulde `stembureaus_zonder_loc.csv` bestand en noem het `stembureaus_zonder_loc_filled.csv` en run `csv_locations2geojson.py` waarna de locaties worden toegevoegd en opgeslagen in `verkiezingsuitslagenlocaties_filled.geo.json`
+- Download het handmatig aangevulde `stembureaus_zonder_loc.csv` bestand en noem het `stembureaus_zonder_loc_filled.csv` en run `./csv_locations2geojson.py` waarna de locaties worden toegevoegd en opgeslagen in `verkiezingsuitslagenlocaties_filled.geo.json`
 
 ## Notes
 - Volgens mij haalden we eerder de opkomstcijfers eruit? (was dat omdat die enkel deels in de CSV zaten en niet in de EML? dus niet relevant voor recente verkiezingen?)
